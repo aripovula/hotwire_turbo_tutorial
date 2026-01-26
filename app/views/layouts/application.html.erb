@@ -22,9 +22,30 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <script type="module">
+      const pageLoadTime = new Date().toLocaleTimeString();
+
+      // Listen for Turbo Drive events
+      document.addEventListener('turbo:load', () => {
+        // This fires on EVERY navigation (including the first page load)
+        const element = document.getElementById('load-time');
+        if (element) {
+          element.textContent = pageLoadTime;
+        }
+        console.log('Turbo:load event fired. Original page load:', pageLoadTime);
+      });
+
+      console.log('Script initialized at:', pageLoadTime);
+    </script>
+
   </head>
 
   <body>
+    <div style="display:flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #ccc;">
+      <div>Page loaded at: <span id="load-time"></span></div>
+    </div>
+
     <%= yield %>
   </body>
 </html>
