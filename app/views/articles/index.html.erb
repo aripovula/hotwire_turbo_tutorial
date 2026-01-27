@@ -11,3 +11,8 @@
 </div>
 
 <%= link_to "New article", new_article_path %>
+
+<div style="display:flex; justify-content: space-between; align-items: center; padding: 1rem; border-top: 1px solid #ccc;">
+  <%= turbo_frame_tag "details_panel" do %>
+  <% end %>
+</div>
