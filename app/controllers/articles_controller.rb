@@ -57,6 +57,11 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def statistics
+    @total_articles = Article.count
+    @total_words = Article.sum { |article| article.body.to_s.split.size }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
