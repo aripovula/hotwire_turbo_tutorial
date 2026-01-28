@@ -3,7 +3,10 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    @page = params[:page] || 1
+    @per_page = 5
+    @articles = Article.offset((@page.to_i - 1) * @per_page).limit(@per_page)
+    @total_pages = (Article.count.to_f / @per_page).ceil
   end
 
   # GET /articles/1 or /articles/1.json
