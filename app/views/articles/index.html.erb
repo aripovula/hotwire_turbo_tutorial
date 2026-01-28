@@ -1,0 +1,38 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Articles" %>
+
+<h1>Articles</h1>
+
+<%= turbo_frame_tag "articles_list", data: { turbo_action: "advance" } do %>
+  <div id="articles">
+    <% @articles.each do |article| %>
+      <%= render article %>
+    <% end %>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-top: 1px solid #ccc;">
+    <% if @page.to_i > 1 %>
+      <%= link_to "< Previous", articles_path(page: @page.to_i - 1), data: { turbo_frame: "articles_list" } %>
+    <% else %>
+      <span style="color: eee">< Previous</span>
+    <% end %>
+
+    <% if @page.to_i < @total_pages %>
+      <%= link_to "Next >", articles_path(page: @page.to_i + 1), data: { turbo_frame: "articles_list" } %>
+    <% else %>
+      <span style="color: eee">Next ></span>
+    <% end %>
+  </div>
+<% end %>
+
+<%= link_to "New article", new_article_path %>
+
+<%= turbo_frame_tag "statistics", src: statistics_articles_path, loading: "lazy" do %>
+  <p>Loading...</p>
+<% end %>
+
+<div style="display:flex; justify-content: space-between; align-items: center; padding: 1rem; border-top: 1px solid #ccc;">
+  <%= turbo_frame_tag "details_panel" do %>
+  <% end %>
+</div>

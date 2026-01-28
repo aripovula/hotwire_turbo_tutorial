@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "details_panel" do %>
+  <p style="color: green"><%= notice %></p>
+
+  <h3>Details:</h3>
+  <strong>Updated at:</strong>
+  <%= @article.updated_at %>
+  <%= render @article %>
+<% end %>
